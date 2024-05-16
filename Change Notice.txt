@@ -1,0 +1,32 @@
+String requestDataString = ""; 
+
+String Str = "Test"; 
+
+ 		try {	wt.epm.EPMDocument epmDoc = null; 
+
+ 			wt.fc.QueryResult qr = wt.change2.ChangeHelper2.service 
+
+.getChangeablesAfter((wt.change2.WTChangeOrder2) primaryBusinessObject); 
+
+ 			while (qr.hasMoreElements()) { 
+
+ 				wt.fc.Persistable pers = (wt.fc.Persistable) qr.nextElement(); 
+
+ 				if (pers instanceof wt.epm.EPMDocument) { 
+
+epmDoc = (wt.epm.EPMDocument) pers; 
+
+String DocType = epmDoc.getDocType().toString(); 
+
+ 					if (DocType.equalsIgnoreCase("CADDRAWING")) { 
+
+requestDataString += epmDoc.getCADName() + "$"; 
+
+System.out.println("## requestDataString :-" + requestDataString); 
+
+ext.nimr.MBDtableUpdate.TriggerCADexe.addToWorkspace(pers, Str);// ServiceClass method 
+}}} 
+
+ext.nimr.MBDtableUpdate.TriggerCADexe.ServiceClass.sendToServer(requestDataString);// ServiceClass method 
+
+} catch (Exception e) {   }  

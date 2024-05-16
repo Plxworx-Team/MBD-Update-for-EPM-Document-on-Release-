@@ -1,0 +1,26 @@
+boolean containsYes=false;
+		boolean inWorkspace=false;
+		java.util.ArrayList<String> arrList= new java.util.ArrayList<String>();
+		try {
+			wt.epm.EPMDocument epmDoc = null;
+			wt.fc.QueryResult qr = wt.change2.ChangeHelper2.service
+					.getChangeablesAfter((wt.change2.WTChangeOrder2) primaryBusinessObject);
+            String found=null;
+			while (qr.hasMoreElements()) {
+							wt.fc.Persistable pers = (wt.fc.Persistable) qr.nextElement();
+				System.out.println(("@@@ ") + pers.getClass().getName());
+				if (pers instanceof wt.epm.EPMDocument && !inWorkspace) {
+						inWorkspace=  ext.CadCustomization.CheckReminingResultingObject.CheckReminingObject(pers);
+							}				
+		}
+			        if (inWorkspace) {
+	            System.out.println("The ArrayList contains 'yes'.");
+	            
+	            result="yes";
+	        } else {
+	            System.out.println("The ArrayList does not contain 'yes'.");
+	            result="no";
+	        }
+	} 
+	catch (Exception e) {
+		}
